@@ -1507,6 +1507,28 @@ define Device/xiaomi_mi-router-ac2100
 endef
 TARGET_DEVICES += xiaomi_mi-router-ac2100
 
+define Device/xiaomi_mi-router-cr6606
+  $(Device/dsa-migration)
+  $(Device/uimage-lzma-loader)
+  DEVICE_VENDOR := Xiaomi
+  DEVICE_MODEL := Mi Router CR6606
+  DEVICE_ALT0_VENDOR := Xiaomi
+  DEVICE_ALT0_MODEL := Mi Router CR6608
+  DEVICE_ALT1_VENDOR := Xiaomi
+  DEVICE_ALT1_MODEL := Mi Router CR6609
+  BLOCKSIZE := 128k
+  PAGESIZE := 2048
+  KERNEL_SIZE := 4096k
+  UBINIZE_OPTS := -E 5
+  IMAGE_SIZE := 128512k
+  IMAGES += firmware.bin
+  IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
+  IMAGE/firmware.bin := append-kernel | pad-to $$(KERNEL_SIZE) | append-ubi | \
+	check-size
+  DEVICE_PACKAGES += kmod-mt7915e uboot-envtools
+endef
+TARGET_DEVICES += xiaomi_mi-router-cr6606
+
 define Device/xiaomi_redmi-router-ac2100
   $(Device/xiaomi_nand_separate)
   DEVICE_MODEL := Redmi Router AC2100
