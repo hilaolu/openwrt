@@ -64,7 +64,11 @@
 
 &nand {
 	status = "okay";
-
+	
+	partitions {
+		compatible = "fixed-partitions";
+		#address-cells = <1>;
+		#size-cells = <1>;
                 partition@0 {
                         label = "Bootloader";
                         reg = <0x0 0x80000>;
